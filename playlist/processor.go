@@ -13,19 +13,20 @@ type Result struct {
 	Err       error
 }
 
-func ProcessAll(urls []string, prefix string) []Result {
+func ProcessAll(urls []string, artist string) []Result {
 	return utils.Map(urls, func(url string) Result {
-		return ProcessOne(url, prefix)
+		return ProcessOne(url, artist)
 	})
 }
 
-func ProcessOne(url, prefix string) Result {
+func ProcessOne(url, artist string) Result {
 	data, err := ExtractData(url)
 	if err != nil {
 		return Result{URL: url, Err: err}
 	}
 
-	dir := utils.FormatDirName(prefix, data.Title)
+	playlistDir := utils.FormatDirName("", data.Title)
+	dir := filepath.Join(artist, playlistDir)
 	data.Directory = dir
 
 	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
