@@ -32,11 +32,21 @@ func ProcessOne(url, prefix string) Result {
 		return Result{URL: url, Err: err}
 	}
 
-	if err := utils.SaveImage(data.ThumbURL, filepath.Join(dir, "thumbnail.jpg")); err != nil {
+	if err := utils.SaveImage(data.ThumbURL, filepath.Join(dir, "cover.jpg")); err != nil {
 		return Result{URL: url, Err: err}
 	}
 
-	cmd := exec.Command("yt-dlp", "-P", dir, "--yes-playlist", url)
+	cmd := exec.Command(
+		"yt-dlp",
+		"-f", "bestaudio",
+		"--extract-audio",
+		"--audio-format", "m4a",
+		"--audio-quality", "0",
+		"-o", "%(playlist_index)s - %(title)s.%(ext)s",
+		"-P", dir,
+		"--yes-playlist",
+		url,
+	)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
