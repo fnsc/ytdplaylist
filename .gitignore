@@ -1,0 +1,14 @@
+# Binaries
+*.exe
+*.out
+*.test
+
+# IDEs/editors
+.vscode/
+.idea/
+*.swp
+
+# Go stuff
+vendor/
+bin/
+pkg/
