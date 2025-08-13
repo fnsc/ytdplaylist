@@ -44,6 +44,7 @@ func ProcessOne(url, artist string) Result {
 		"--audio-format", "m4a",
 		"--audio-quality", "0",
 		"-o", "%(playlist_index)s %(title)s.%(ext)s",
+		"--cookies", "~/.yt-dlp-config/yt-cookies.txt",
 		"-P", dir,
 		"--yes-playlist",
 		url,
