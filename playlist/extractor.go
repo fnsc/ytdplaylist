@@ -35,7 +35,7 @@ func ExtractData(url string) (PlaylistData, error) {
 	thumb := doc.Find("meta[property='og:image']").AttrOr("content", "")
 
 	if title == "" || thumb == "" {
-		return PlaylistData{}, errors.New("falha ao extrair título ou thumbnail")
+		return PlaylistData{}, errors.New("missing required metadata: title or thumb")
 	}
 
 	return PlaylistData{

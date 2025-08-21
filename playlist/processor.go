@@ -10,6 +10,7 @@ import (
 type Result struct {
 	URL       string
 	Directory string
+	Data      PlaylistData
 	Err       error
 }
 
@@ -43,7 +44,7 @@ func ProcessOne(url, artist string) Result {
 		"--extract-audio",
 		"--audio-format", "m4a",
 		"--audio-quality", "0",
-		"-o", "%(playlist_index)s %(title)s.%(ext)s",
+		"-o", "%(playlist_index)s - %(title)s.%(ext)s",
 		"--cookies", "~/.yt-dlp-config/yt-cookies.txt",
 		"-P", dir,
 		"--yes-playlist",
@@ -56,5 +57,5 @@ func ProcessOne(url, artist string) Result {
 		return Result{URL: url, Err: err}
 	}
 
-	return Result{URL: url, Directory: dir}
+	return Result{URL: url, Directory: dir, Data: data}
 }
