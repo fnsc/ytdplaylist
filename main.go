@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"ytpd/excel"
-	"ytpd/metadata"
 	"ytpd/playlist"
 )
 
@@ -27,7 +26,6 @@ func main() {
 		if result.Err != nil {
 			log.Printf("Error %s: %v", result.URL, result.Err)
 		} else {
-			metadata.WriteAllMetadata(result, artist)
 			log.Printf("Success: %s", result.Directory)
 		}
 	}

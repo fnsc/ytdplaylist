@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"unicode"
 )
 
 func SaveImage(url, path string) error {
@@ -30,7 +31,15 @@ func Sanitize(s string) string {
 		"/", "_", "\\", "_", ":", "_", "*", "_",
 		"?", "_", "\"", "_", "<", "_", ">", "_", "|", "_",
 	)
-	return replacer.Replace(strings.TrimSpace(s))
+	s = replacer.Replace(strings.TrimSpace(s))
+
+	// Remove non-ASCII characters (en-dash, em-dash, etc.)
+	return strings.Map(func(r rune) rune {
+		if r > unicode.MaxASCII {
+			return -1
+		}
+		return r
+	}, s)
 }
 
 func toCamelCase(s string) string {
