@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -24,6 +25,29 @@ func SaveImage(url, path string) error {
 
 	_, err = io.Copy(out, resp.Body)
 	return err
+}
+
+func FetchJSON(url string, headers map[string]string, target any) error {
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return fmt.Errorf("creating request: %w", err)
+	}
+
+	for k, v := range headers {
+		req.Header.Set(k, v)
+	}
+
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return fmt.Errorf("fetching %s: %w", url, err)
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("unexpected status %d from %s", resp.StatusCode, url)
+	}
+
+	return json.NewDecoder(resp.Body).Decode(target)
 }
 
 func Sanitize(s string) string {
