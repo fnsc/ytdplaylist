@@ -1,14 +1,18 @@
-# Binaries
-*.exe
-*.out
-*.test
+# Binary
+ytpd
 
-# IDEs/editors
-.vscode/
+# Downloaded content
+kiko loureiro/
+*/cover.jpg
+*.m4a
+
+# Excel files
+*.xlsx
+
+# OS
+.DS_Store
+
+# IDE
 .idea/
+.vscode/
 *.swp
-
-# Go stuff
-vendor/
-bin/
-pkg/
