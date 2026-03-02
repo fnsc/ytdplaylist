@@ -59,7 +59,7 @@ func ProcessOne(url, artist string) Result {
 		"--parse-metadata", "%(playlist_index)s:%(track_number)s",
 		"--parse-metadata", "%(release_date)s:%(meta_date)s",
 		"-o", "%(playlist_index)s - %(title)s.%(ext)s",
-		"--cookies", "~/.yt-dlp-config/yt-cookies.txt",
+		"--cookies-from-browser", "firefox",
 		"-P", dir,
 		"--yes-playlist",
 		url,
