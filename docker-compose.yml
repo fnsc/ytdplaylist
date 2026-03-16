@@ -3,6 +3,9 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    ports:
-      - "8080:8080"
-    restart: unless-stopped
+    volumes:
+      - ./downloads:/downloads
+      - ${EXCEL_PATH:-./playlist.xlsx}:/input/playlist.xlsx:ro
+      - "${HOME}/Library/Application Support/Firefox:/root/.mozilla/firefox:ro"
+    working_dir: /downloads
+    command: ["${ARTIST}", "/input/playlist.xlsx"]

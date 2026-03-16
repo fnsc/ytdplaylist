@@ -95,12 +95,38 @@ ffprobe -show_entries format_tags -of json "01 - Gray Stone Gateway.m4a"
    - Extracts all credit roles from `extraartists` (release-level and track-level)
    - Also provides genre, styles, label, year, country, barcode
 
-## Prerequisites
+## Docker (sem instalar Go)
+
+Rode o projeto sem precisar instalar Go, yt-dlp ou ffmpeg na sua máquina.
+
+**Pré-requisitos:** Docker + Docker Compose.
+
+```bash
+# Build da imagem (só na primeira vez ou após mudanças no código)
+docker compose build
+
+# Rodar passando o artista e o caminho do Excel
+ARTIST="Nome do Artista" EXCEL_PATH="./playlists.xlsx" docker compose run --rm app
+```
+
+**Exemplo:**
+
+```bash
+ARTIST="Kiko Loureiro" EXCEL_PATH="./playlists.xlsx" docker compose run --rm app
+```
+
+Os arquivos baixados aparecem em `./downloads/<artista>/` no seu PC.
+
+> O container monta automaticamente os cookies do Firefox local para autenticação no YouTube.
+
+---
+
+## Prerequisites (execução local)
 
 - **Go** 1.24+
 - **yt-dlp** — `brew install yt-dlp`
 - **ffmpeg** — `brew install ffmpeg`
-- **YouTube cookies** at `~/.yt-dlp-config/yt-cookies.txt` (needed for age-restricted or member-only content)
+- **YouTube cookies** — Firefox instalado localmente (usado via `--cookies-from-browser firefox`)
 
 ## Environment variables
 
